@@ -1,40 +1,41 @@
 <?php
-
 /**
- * WP-Admin Theme Customisations - Пользовательские функции
+ * Custom functions
  *
- * @package WP_Admin_Theme_Customisations
- * @version 1.1.0
- * @author WPAdmin
- * @link https://github.com/wpadmin
+ * @package ZHSH\ThemeCustomisations
+ * @author  Zhenya Sh.
+ * @link    https://github.com/wpadmin
  */
 
-// Запрет прямого доступа к файлу
-if (! defined('ABSPATH')) {
+namespace ZHSH\ThemeCustomisations;
+
+// Direct access protection.
+if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
 /**
- * Регистрация пользовательских типов записей
+ * Register custom post types
+ *
+ * Example of registering custom post type.
+ * Uncomment register_post_type() call to activate.
  */
-function wp_admin_tc_register_post_types()
-{
-    // Пример регистрации пользовательского типа записи
+function register_custom_post_types() {
     $labels = array(
-        'name'               => _x('Проекты', 'post type general name', 'wp-admin-theme-customisations'),
-        'singular_name'      => _x('Проект', 'post type singular name', 'wp-admin-theme-customisations'),
-        'menu_name'          => _x('Проекты', 'admin menu', 'wp-admin-theme-customisations'),
-        'name_admin_bar'     => _x('Проект', 'add new on admin bar', 'wp-admin-theme-customisations'),
-        'add_new'            => _x('Добавить новый', 'project', 'wp-admin-theme-customisations'),
-        'add_new_item'       => __('Добавить новый проект', 'wp-admin-theme-customisations'),
-        'new_item'           => __('Новый проект', 'wp-admin-theme-customisations'),
-        'edit_item'          => __('Редактировать проект', 'wp-admin-theme-customisations'),
-        'view_item'          => __('Просмотреть проект', 'wp-admin-theme-customisations'),
-        'all_items'          => __('Все проекты', 'wp-admin-theme-customisations'),
-        'search_items'       => __('Искать проекты', 'wp-admin-theme-customisations'),
-        'parent_item_colon'  => __('Родительский проект:', 'wp-admin-theme-customisations'),
-        'not_found'          => __('Проекты не найдены.', 'wp-admin-theme-customisations'),
-        'not_found_in_trash' => __('В корзине проекты не найдены.', 'wp-admin-theme-customisations')
+        'name'               => _x( 'Projects', 'post type general name', 'zhsh-theme-customisations' ),
+        'singular_name'      => _x( 'Project', 'post type singular name', 'zhsh-theme-customisations' ),
+        'menu_name'          => _x( 'Projects', 'admin menu', 'zhsh-theme-customisations' ),
+        'name_admin_bar'     => _x( 'Project', 'add new on admin bar', 'zhsh-theme-customisations' ),
+        'add_new'            => _x( 'Add New', 'project', 'zhsh-theme-customisations' ),
+        'add_new_item'       => __( 'Add New Project', 'zhsh-theme-customisations' ),
+        'new_item'           => __( 'New Project', 'zhsh-theme-customisations' ),
+        'edit_item'          => __( 'Edit Project', 'zhsh-theme-customisations' ),
+        'view_item'          => __( 'View Project', 'zhsh-theme-customisations' ),
+        'all_items'          => __( 'All Projects', 'zhsh-theme-customisations' ),
+        'search_items'       => __( 'Search Projects', 'zhsh-theme-customisations' ),
+        'parent_item_colon'  => __( 'Parent Projects:', 'zhsh-theme-customisations' ),
+        'not_found'          => __( 'No projects found.', 'zhsh-theme-customisations' ),
+        'not_found_in_trash' => __( 'No projects found in Trash.', 'zhsh-theme-customisations' ),
     );
 
     $args = array(
@@ -44,59 +45,56 @@ function wp_admin_tc_register_post_types()
         'show_ui'            => true,
         'show_in_menu'       => true,
         'query_var'          => true,
-        'rewrite'            => array('slug' => 'projects'),
+        'rewrite'            => array( 'slug' => 'projects' ),
         'capability_type'    => 'post',
         'has_archive'        => true,
         'hierarchical'       => false,
         'menu_position'      => null,
-        'supports'           => array('title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments'),
-        'menu_icon'          => 'dashicons-portfolio'
+        'supports'           => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments' ),
+        'menu_icon'          => 'dashicons-portfolio',
     );
 
-    // Раскомментируйте строку ниже для активации пользовательского типа записи
+    // Uncomment to activate custom post type.
     // register_post_type( 'project', $args );
 }
-add_action('init', 'wp_admin_tc_register_post_types');
+add_action( 'init', __NAMESPACE__ . '\\register_custom_post_types' );
 
 /**
- * Регистрация пользовательских таксономий
+ * Register custom taxonomies
+ *
+ * Example of registering custom taxonomy.
+ * Uncomment register_taxonomy() call to activate.
  */
-function wp_admin_tc_register_taxonomies()
-{
-    // Пример регистрации пользовательской таксономии
+function register_custom_taxonomies() {
     $labels = array(
-        'name'                       => _x('Категории проектов', 'taxonomy general name', 'wp-admin-theme-customisations'),
-        'singular_name'              => _x('Категория проекта', 'taxonomy singular name', 'wp-admin-theme-customisations'),
-        'search_items'               => __('Искать категории', 'wp-admin-theme-customisations'),
-        'popular_items'              => __('Популярные категории', 'wp-admin-theme-customisations'),
-        'all_items'                  => __('Все категории', 'wp-admin-theme-customisations'),
+        'name'                       => _x( 'Project Categories', 'taxonomy general name', 'zhsh-theme-customisations' ),
+        'singular_name'              => _x( 'Project Category', 'taxonomy singular name', 'zhsh-theme-customisations' ),
+        'search_items'               => __( 'Search Categories', 'zhsh-theme-customisations' ),
+        'popular_items'              => __( 'Popular Categories', 'zhsh-theme-customisations' ),
+        'all_items'                  => __( 'All Categories', 'zhsh-theme-customisations' ),
         'parent_item'                => null,
         'parent_item_colon'          => null,
-        'edit_item'                  => __('Редактировать категорию', 'wp-admin-theme-customisations'),
-        'update_item'                => __('Обновить категорию', 'wp-admin-theme-customisations'),
-        'add_new_item'               => __('Добавить новую категорию', 'wp-admin-theme-customisations'),
-        'new_item_name'              => __('Название новой категории', 'wp-admin-theme-customisations'),
-        'separate_items_with_commas' => __('Разделяйте категории запятыми', 'wp-admin-theme-customisations'),
-        'add_or_remove_items'        => __('Добавить или удалить категории', 'wp-admin-theme-customisations'),
-        'choose_from_most_used'      => __('Выбрать из наиболее используемых категорий', 'wp-admin-theme-customisations'),
-        'not_found'                  => __('Категории не найдены.', 'wp-admin-theme-customisations'),
-        'menu_name'                  => __('Категории проектов', 'wp-admin-theme-customisations'),
+        'edit_item'                  => __( 'Edit Category', 'zhsh-theme-customisations' ),
+        'update_item'                => __( 'Update Category', 'zhsh-theme-customisations' ),
+        'add_new_item'               => __( 'Add New Category', 'zhsh-theme-customisations' ),
+        'new_item_name'              => __( 'New Category Name', 'zhsh-theme-customisations' ),
+        'separate_items_with_commas' => __( 'Separate categories with commas', 'zhsh-theme-customisations' ),
+        'add_or_remove_items'        => __( 'Add or remove categories', 'zhsh-theme-customisations' ),
+        'choose_from_most_used'      => __( 'Choose from the most used categories', 'zhsh-theme-customisations' ),
+        'not_found'                  => __( 'No categories found.', 'zhsh-theme-customisations' ),
+        'menu_name'                  => __( 'Project Categories', 'zhsh-theme-customisations' ),
     );
 
     $args = array(
-        'hierarchical'          => true,
-        'labels'                => $labels,
-        'show_ui'               => true,
-        'show_admin_column'     => true,
-        'query_var'             => true,
-        'rewrite'               => array('slug' => 'project-category'),
+        'hierarchical'      => true,
+        'labels'            => $labels,
+        'show_ui'           => true,
+        'show_admin_column' => true,
+        'query_var'         => true,
+        'rewrite'           => array( 'slug' => 'project-category' ),
     );
 
-    // Раскомментируйте строку ниже для активации пользовательской таксономии
+    // Uncomment to activate custom taxonomy.
     // register_taxonomy( 'project_category', array( 'project' ), $args );
 }
-add_action('init', 'wp_admin_tc_register_taxonomies');
-
-/**
- * Добавление новых функций ...
- */
+add_action( 'init', __NAMESPACE__ . '\\register_custom_taxonomies' );

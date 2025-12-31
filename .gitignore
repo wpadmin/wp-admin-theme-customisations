@@ -1,0 +1,34 @@
+# WordPress files
+wp-config.php
+wp-content/uploads/
+wp-content/cache/
+wp-content/backup-db/
+
+# Claude files
+.CLAUDE.md
+.claude/
+
+# IDE and editor files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Dependency directories
+node_modules/
+vendor/
+
+# Build files
+*.log
+*.zip
+*.tar.gz
+
+# Temporary files
+*.tmp
+*.swp
+*~
